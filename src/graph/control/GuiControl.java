@@ -1,6 +1,7 @@
 package graph.control;
 
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
@@ -11,7 +12,7 @@ import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import graph.Directable;
 import graph.Directable.Directed;
-import graph.GuiGraph;
+import graph.viewer.GuiGraph;
 import graph.Link;
 import graph.algorithm.ListAdjacency;
 import graph.Vertex;
@@ -20,27 +21,33 @@ import graph.algorithm.DepthFirstSearch;
 import graph.algorithm.MatrixAdjacency;
 import graph.algorithm.MatrixIncidence;
 import graph.algorithm.Prim;
+import graph.algorithm.WelshPowell;
 import graph.viewer.ListAdjacencyViewer;
 import graph.viewer.MatrixAdjacencyViewer;
 import graph.viewer.MatrixIncidenceViewer;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Paint;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.apache.commons.collections15.Transformer;
 
 public class GuiControl {
 
     private GuiGraph gui;
     private ListAdjacency list;
     private Directable direction;
+    private char link;
 
     public GuiControl(GuiGraph gui) {
         this.gui = gui;
         this.direction = new Directable.UnDirected();
         this.list = new ListAdjacency(direction);
+        this.link = 'A';
     }
 
     public JPanel createPanelVertex(String label) {
@@ -60,7 +67,8 @@ public class GuiControl {
     public JPanel createPanelLink() {
         JPanel panel = new JPanel(new GridLayout(8, 1));
         panel.add(new JLabel("Tag da Aresta|Arco: "));
-        panel.add(new JTextField("L"));
+        panel.add(new JTextField("" + link));
+        link++;
         panel.add(new JLabel("Tag da vértice: "));
         panel.add(new JTextField("V"));
         panel.add(new JLabel("Tag da vértice adjacente: "));
@@ -135,12 +143,18 @@ public class GuiControl {
 
     }
 
+    public void setList(ListAdjacency list) {
+        this.list = list;
+    }
+
     public void cleanGui() {
         list = new ListAdjacency(direction);
+        link = 'A';
         updateGui();
     }
 
     public void updateGui() {
+        new WelshPowell(list).run();
         gui.getText_list_adjacency().setText(ListAdjacencyViewer.status(list));
         gui.getText_matrix_adjacency().setText(MatrixAdjacencyViewer.status(new MatrixAdjacency(list)));
         gui.getText_matrix_incidence().setText(MatrixIncidenceViewer.status(new MatrixIncidence(list)));
@@ -183,20 +197,44 @@ public class GuiControl {
         }
     }
 
-    public void print(ListAdjacency list, String name) {
+    private EdgeType getTypeGraph(Class clazz) {
+        return clazz == Directed.class ? EdgeType.DIRECTED : EdgeType.UNDIRECTED;
+    }
+
+    private Graph<Vertex, Link> createGraphJung(ListAdjacency list) {
         Graph<Vertex, Link> g = new SparseMultigraph<>();
         list.getVertexes().forEach(vertex -> g.addVertex(vertex));
-        list.getLinks().forEach(link -> g.addEdge(link, link.getVertex(), link.getAdjacent(),
-                list.getType().getClass() == Directed.class ? EdgeType.DIRECTED : EdgeType.UNDIRECTED));
-        Layout<Vertex, Link> layout = new CircleLayout(g);
+        list.getLinks().forEach(link -> g.addEdge(link, link.getVertex(),
+                link.getAdjacent(), getTypeGraph(list.getType().getClass())));
+        return g;
+    }
+
+    private Layout<Vertex, Link> createLayoutJung(Graph<Vertex, Link> graph) {
+        Layout<Vertex, Link> layout = new FRLayout(graph);
         layout.setSize(new Dimension(300, 300));
+        return layout;
+    }
+
+    private Transformer<Vertex, Paint> vertexPaint() {
+        Transformer<Vertex, Paint> vp = (Vertex input) -> {
+            return input.getColor();
+        };
+        return vp;
+    }
+
+    private VisualizationViewer<Vertex, Link> createVisualizationJung(Layout<Vertex, Link> layout) {
         VisualizationViewer<Vertex, Link> vv = new VisualizationViewer<>(layout);
         vv.setPreferredSize(new Dimension(350, 350));
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
         vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+        vv.getRenderContext().setVertexFillPaintTransformer(vertexPaint());
         DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
-        gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
+        gm.setMode(ModalGraphMouse.Mode.PICKING);
         vv.setGraphMouse(gm);
+        return vv;
+    }
+
+    private void createFrame(String name, VisualizationViewer<Vertex, Link> vv) {
         JFrame frame = new JFrame(name + " - Custo Total: " + list.getTotalCost());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(vv);
@@ -204,9 +242,14 @@ public class GuiControl {
         frame.setVisible(true);
     }
 
+    public void print(ListAdjacency list, String name) {
+        Graph<Vertex, Link> graph = createGraphJung(list);
+        Layout<Vertex, Link> layout = createLayoutJung(graph);
+        VisualizationViewer<Vertex, Link> vv = createVisualizationJung(layout);
+        createFrame(name, vv);
+    }
+
     public ListAdjacency getList() {
         return list;
     }
-    
-    
 }

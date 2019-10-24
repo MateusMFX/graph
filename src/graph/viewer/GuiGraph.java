@@ -1,8 +1,11 @@
-package graph;
+package graph.viewer;
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
-import graph.control.GuiAdjacent;
+import graph.Link;
+import graph.ParanaState;
+import graph.Vertex;
+import graph.viewer.GuiAdjacent;
 import graph.control.GuiControl;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -75,6 +78,8 @@ public class GuiGraph extends javax.swing.JFrame {
         btn_print_prim = new javax.swing.JButton();
         btn_print_bfs = new javax.swing.JButton();
         btn_print_dfs = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        btn_load_map = new javax.swing.JButton();
         panel_text = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         text_matrix_adjacency = new javax.swing.JTextArea();
@@ -211,6 +216,18 @@ public class GuiGraph extends javax.swing.JFrame {
             }
         });
         toolbar.add(btn_print_dfs);
+        toolbar.add(jSeparator2);
+
+        btn_load_map.setIcon(new javax.swing.ImageIcon(getClass().getResource("/graph/img/map.png"))); // NOI18N
+        btn_load_map.setFocusable(false);
+        btn_load_map.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_load_map.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_load_map.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_load_mapActionPerformed(evt);
+            }
+        });
+        toolbar.add(btn_load_map);
 
         text_matrix_adjacency.setEditable(false);
         text_matrix_adjacency.setColumns(20);
@@ -316,11 +333,18 @@ public class GuiGraph extends javax.swing.JFrame {
        adjacent.setVisible(true);   
     }//GEN-LAST:event_btn_adjacentActionPerformed
 
+    private void btn_load_mapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_load_mapActionPerformed
+        control.cleanGui();
+        control.setList(new ParanaState().getListAdjacency());
+        control.updateGui();
+    }//GEN-LAST:event_btn_load_mapActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add_link;
     private javax.swing.JButton btn_add_vertex;
     private javax.swing.JButton btn_adjacent;
     private javax.swing.JButton btn_clean;
+    private javax.swing.JButton btn_load_map;
     private javax.swing.JButton btn_print_bfs;
     private javax.swing.JButton btn_print_dfs;
     private javax.swing.JButton btn_print_graph;
@@ -332,6 +356,7 @@ public class GuiGraph extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JPanel panel_text;
     private javax.swing.JToolBar.Separator separator01;
     private javax.swing.JToolBar.Separator separator02;

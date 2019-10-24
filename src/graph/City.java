@@ -1,4 +1,4 @@
-package graph.mockup;
+package graph;
 
 /**
  *
@@ -6,13 +6,25 @@ package graph.mockup;
  */
 public class City {
     
-    private String name;
+    private String name, tag;
     private double latitude, longitude, heuristic;
 
     public City(String name, double latitude, double longitude) {
         this.name = name;
+        this.tag = name.substring(0, 3);
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public City(City copy) {
+        this.name = copy.name;
+        this.latitude = copy.latitude;
+        this.longitude = copy.longitude;
+        this.heuristic = copy.heuristic;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -39,6 +51,6 @@ public class City {
 
     @Override
     public String toString() {
-        return name;
+        return tag;
     }    
 }

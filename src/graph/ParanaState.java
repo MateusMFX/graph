@@ -1,8 +1,6 @@
-package graph.mockup;
+package graph;
 
-import graph.Directable;
-import graph.Link;
-import graph.Vertex;
+import cern.colt.Arrays;
 import graph.algorithm.ListAdjacency;
 import graph.viewer.ListAdjacencyViewer;
 
@@ -17,7 +15,7 @@ public class ParanaState {
             paranagua, guarapuava, londrina, ponta_grossa, maringa, umuarama,
             curitiba;
     Vertex casc, tol, foz, fran, sao, para, guara, lond, ponta, marin, umu, curi;
-    Link l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14;
+    Link a, b, c, d, e, f, g, h, i, j, k, l, m, n;
 
     public ParanaState() {
         listAdjacency = new ListAdjacency(new Directable.UnDirected());
@@ -59,20 +57,20 @@ public class ParanaState {
     }
 
     private void initLinks() {
-        l1 = new Link("L1").withVertex(casc).withAdjacent(tol).withCost(50);
-        l2 = new Link("L2").withVertex(casc).withAdjacent(foz).withCost(143);
-        l3 = new Link("L3").withVertex(casc).withAdjacent(fran).withCost(186);;
-        l4 = new Link("L4").withVertex(casc).withAdjacent(guara).withCost(250);
-        l5 = new Link("L5").withVertex(tol).withAdjacent(umu).withCost(126);
-        l6 = new Link("L6").withVertex(umu).withAdjacent(marin).withCost(190);
-        l7 = new Link("L7").withVertex(marin).withAdjacent(lond).withCost(114);
-        l8 = new Link("L8").withVertex(marin).withAdjacent(ponta).withCost(314);
-        l9 = new Link("L9").withVertex(lond).withAdjacent(ponta).withCost(273);
-        l10 = new Link("L10").withVertex(guara).withAdjacent(ponta).withCost(165);
-        l11 = new Link("L11").withVertex(fran).withAdjacent(sao).withCost(354);
-        l12 = new Link("L12").withVertex(sao).withAdjacent(curi).withCost(157);
-        l13 = new Link("L13").withVertex(curi).withAdjacent(para).withCost(90);
-        l14 = new Link("L14").withVertex(ponta).withAdjacent(curi).withCost(114);
+        a = new Link("A").withVertex(casc).withAdjacent(tol).withCost(50);
+        b = new Link("B").withVertex(casc).withAdjacent(foz).withCost(143);
+        c = new Link("C").withVertex(casc).withAdjacent(fran).withCost(186);;
+        d = new Link("D").withVertex(casc).withAdjacent(guara).withCost(250);
+        e = new Link("E").withVertex(tol).withAdjacent(umu).withCost(126);
+        f = new Link("F").withVertex(umu).withAdjacent(marin).withCost(190);
+        g = new Link("G").withVertex(marin).withAdjacent(lond).withCost(114);
+        h = new Link("H").withVertex(marin).withAdjacent(ponta).withCost(314);
+        i = new Link("I").withVertex(lond).withAdjacent(ponta).withCost(273);
+        j = new Link("J").withVertex(guara).withAdjacent(ponta).withCost(165);
+        k = new Link("K").withVertex(fran).withAdjacent(sao).withCost(354);
+        l = new Link("L").withVertex(sao).withAdjacent(curi).withCost(157);
+        m = new Link("M").withVertex(curi).withAdjacent(para).withCost(90);
+        n = new Link("N").withVertex(ponta).withAdjacent(curi).withCost(114);
     }
 
     private void addVertexes() {
@@ -83,16 +81,18 @@ public class ParanaState {
     }
 
     private void addLinks() {
-        listAdjacency.addLink(l1).addLink(l2).addLink(l3).addLink(l4)
-                .addLink(l5).addLink(l6).addLink(l7).addLink(l8).addLink(l9)
-                .addLink(l10).addLink(l11).addLink(l12).addLink(l13)
-                .addLink(l14);
+        listAdjacency.addLink(a).addLink(b).addLink(c).addLink(d)
+                .addLink(e).addLink(f).addLink(g).addLink(h).addLink(i)
+                .addLink(j).addLink(k).addLink(l).addLink(m)
+                .addLink(n);
+    }
+    
+    public ListAdjacency getListAdjacency(){
+        return listAdjacency;
     }
 
     public void show() {
         System.out.println(ListAdjacencyViewer.status(listAdjacency));
-        System.out.println("\n\n");
-        System.out.println(listAdjacency.getHighestDegree());
     }
 
 }

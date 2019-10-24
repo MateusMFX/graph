@@ -1,6 +1,7 @@
-package graph.control;
+package graph.viewer;
 
 import graph.Vertex;
+import graph.control.GuiControl;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 

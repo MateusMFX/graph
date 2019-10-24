@@ -13,11 +13,12 @@ import java.util.stream.Collectors;
 public abstract class ListAdjacencyViewer {
 
     public static String status(ListAdjacency listAdjacency) {
-        return "\n" + listAdjacency.getVertexes().stream().sorted()
-                        .map(vertex -> "[" + vertex.getTag() + "]"
-                        + statusAdjacents(listAdjacency, vertex))
-                        .collect(Collectors.joining("\n"));
-              
+        return "\n" + listAdjacency.getVertexes().stream()
+                .sorted()
+                .map(vertex -> "[" + vertex.getTag() + "]"
+                + statusAdjacents(listAdjacency, vertex))
+                .collect(Collectors.joining("\n"));
+
     }
 
     public static String statusAdjacents(ListAdjacency list, Vertex vertex) {

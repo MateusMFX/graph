@@ -1,7 +1,11 @@
 package graph;
 
 import graph.viewer.VertexViewer;
+import java.awt.Color;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
+import util.Reflection;
 
 /**
  * Vértice são os pontos (elementos) de um grafo, possui um rótulo para
@@ -12,19 +16,31 @@ import java.util.Objects;
 public class Vertex implements Comparable<Vertex> {
 
     private final Object element;
+    private Color color;
 
     public Vertex(Object element) {
         this.element = element;
+        this.color = null;
     }
 
     public Vertex(Vertex copy) {
-        this.element = copy.element;
+        this.element = Reflection.clone(copy.element);
+        this.color = copy.color;
     }
 
     public String getTag() {
         return element.toString();
     }
 
+    public Color getColor() {
+        return color;
+    }
+    
+    public Vertex withColor(Color color) {
+        this.color = color;
+        return this;
+    }
+    
     @Override
     public String toString() {
         return VertexViewer.status(this);
@@ -46,6 +62,14 @@ public class Vertex implements Comparable<Vertex> {
         int hash = 3;
         hash = 23 * hash + Objects.hashCode(this.element);
         return hash;
+    }
+
+    public static List<Vertex> clone(List<Vertex> copy) {
+        List<Vertex> list = new LinkedList<>();
+        copy.forEach(vertex -> {
+            list.add(new Vertex(vertex));
+        });
+        return list;
     }
 
 }

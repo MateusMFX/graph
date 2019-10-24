@@ -18,6 +18,6 @@ public abstract class LinkViewer {
     }
 
     public static String status(Link link) {
-        return link.getTag() + " (" + link.getCost() + ")";
+        return link.getCost() + "";
     }
 }

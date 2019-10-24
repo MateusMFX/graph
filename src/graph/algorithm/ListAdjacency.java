@@ -5,6 +5,7 @@ import graph.Link;
 import graph.Vertex;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,19 +29,12 @@ public class ListAdjacency {
         this.list = new HashMap<>();
         this.links = new ArrayList<>();
     }
-    
-    public ListAdjacency(ListAdjacency copy){
-        this.type = type.getClass() == Directable.UnDirected.class ? 
-                new Directable.UnDirected() : new Directable.Directed();
-        
-    }
-    
-    private Map<Vertex, List<Vertex>> copy(Map<Vertex, List<Vertex>> copy){
-        Map<Vertex, List<Vertex>> newList = new HashMap<>() ;
-        copy.forEach((key, value) -> {
-            newList.
-        });
-        return newList;
+
+    public ListAdjacency(ListAdjacency copy) {
+        this.type = Directable.copy(type);
+        this.list = ListAdjacency.clone(list);
+        this.links = Link.clone(links);
+
     }
 
     public ListAdjacency addVertex(Vertex vertex) {
@@ -123,10 +117,18 @@ public class ListAdjacency {
                 .collect(Collectors.summingInt(Link::getCost));
     }
 
-    public Vertex getHighestDegree() {
+    public List<Vertex> sortByDegree() {
         return list.entrySet().stream()
-                .max((o1, o2) -> o1.getValue().size() > o2.getValue().size() ? 1 : -1)
-                .map(vertex -> vertex.getKey())
-                .get();
+                .sorted((v1,v2) -> Integer.compare(v2.getValue().size(), v1.getValue().size()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
+
+    public static Map<Vertex, List<Vertex>> clone(Map<Vertex, List<Vertex>> copy) {
+        Map<Vertex, List<Vertex>> newList = new HashMap<>();
+        copy.forEach((key, value) -> {
+            newList.put(new Vertex(key), value);
+        });
+        return newList;
     }
 }

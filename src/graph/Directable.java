@@ -10,6 +10,11 @@ import graph.algorithm.ListAdjacency;
  */
 public interface Directable {
     
+    public static Directable copy(Directable copy){
+        return copy.getClass() == Directable.UnDirected.class
+                ? new Directable.UnDirected() : new Directable.Directed();
+    }
+    
     public void addLink(ListAdjacency list, Link link);
     
     public void removeLink(ListAdjacency list, Link link);

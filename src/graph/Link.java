@@ -1,6 +1,8 @@
 package graph;
 
 import graph.viewer.LinkViewer;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Ligação entre duas vértices na qual possui um custo de fluxo, podendo possuir
@@ -77,5 +79,13 @@ public class Link implements Comparable<Link> {
     @Override
     public int compareTo(Link link) {
         return tag.compareTo(link.tag);
+    }
+
+    public static List<Link> clone(List<Link> copy) {
+        List<Link> list = new LinkedList<>();
+        copy.forEach(link -> {
+            list.add(new Link(link));
+        });
+        return list;
     }
 }
