@@ -34,7 +34,6 @@ public class ListAdjacency {
         this.type = Directable.copy(type);
         this.list = ListAdjacency.clone(list);
         this.links = Link.clone(links);
-
     }
 
     public ListAdjacency addVertex(Vertex vertex) {
@@ -130,5 +129,10 @@ public class ListAdjacency {
             newList.put(new Vertex(key), value);
         });
         return newList;
+    }
+    
+    public List<Vertex> getNeighbors(Vertex v) {
+    	List<Vertex> neighbors = list.get(v);
+    	return neighbors;
     }
 }

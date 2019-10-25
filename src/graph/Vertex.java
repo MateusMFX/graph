@@ -71,5 +71,9 @@ public class Vertex implements Comparable<Vertex> {
         });
         return list;
     }
+    
+    public Object getElement() {
+    	return this.element;
+    }
 
 }

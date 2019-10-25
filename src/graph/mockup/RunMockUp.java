@@ -1,6 +1,7 @@
 package graph.mockup;
 
 import graph.ParanaState;
+import graph.algorithm.AStar;
 
 
 /**
@@ -11,6 +12,7 @@ public class RunMockUp {
 
     public static void main(String[] args) {
         ParanaState mock = new ParanaState();
-        mock.show();
+        AStar astar = new AStar();
+        astar.run(mock.getListAdjacency(), "Umu", "Cur");
     }    
 }

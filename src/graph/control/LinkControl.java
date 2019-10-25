@@ -20,9 +20,17 @@ public class LinkControl {
     }
 
     public static Link getLink(List<Link> links, Vertex vertex, Vertex adjacent) {
-        return links.stream()
-                .filter(link -> link.getVertex().equals(vertex)
-                && link.getAdjacent().equals(adjacent))
-                .findFirst().get();
+    	Link targetLink = null;
+    	for (Link link: links) {
+    		if (link.getVertex().equals(vertex) && link.getAdjacent().equals(adjacent)) {
+    			targetLink = link;
+    			break;
+    		}
+    		if (link.getVertex().equals(adjacent) && link.getAdjacent().equals(vertex)) {
+    			targetLink = link;
+    			break;
+    		}
+    	}
+    	return targetLink;
     }
 }
