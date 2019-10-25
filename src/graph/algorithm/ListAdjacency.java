@@ -1,6 +1,8 @@
 package graph.algorithm;
 
 import graph.Directable;
+import graph.Directable.Directed;
+import graph.Directable.UnDirected;
 import graph.Link;
 import graph.Vertex;
 import java.util.ArrayList;
@@ -136,6 +138,26 @@ public class ListAdjacency {
             return qtdLink <= qtdVertex * 2 - 4;
         }
         return qtdLink <= qtdVertex * 3 - 6;
+    }
+
+    public int getCostBetweenVertex(Vertex v1, Vertex v2) {
+        if(v1.equals(v2)){
+            return 0;
+        }
+        
+        int cost = getCostByType(v1, v2);
+        if (cost == -1 && type instanceof UnDirected) {
+            cost = getCostByType(v2, v1);
+        }
+        return cost;
+    }
+
+    private int getCostByType(Vertex v1, Vertex v2) {
+        return links.stream()
+                .filter(link -> link.getVertex().equals(v1)
+                && link.getAdjacent().equals(v2))
+                .map(link -> link.getCost())
+                .findFirst().orElse(-1);
     }
 
     public List<Vertex> sortByDegree() {

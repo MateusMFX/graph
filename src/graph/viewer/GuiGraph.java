@@ -26,8 +26,28 @@ public class GuiGraph extends javax.swing.JFrame {
         });
     }
 
+    public JTextArea getText_a_star() {
+        return text_a_star;
+    }
+
+    public JTextArea getText_floyd_warshall() {
+        return text_floyd_warshall;
+    }
+
     public JButton getBtn_add_link() {
         return btn_add_link;
+    }
+
+    public JTextArea getText_list_adjacency() {
+        return text_list_adjacency;
+    }
+
+    public JTextArea getText_matrix_adjacency() {
+        return text_matrix_adjacency;
+    }
+
+    public JTextArea getText_matrix_incidence() {
+        return text_matrix_incidence;
     }
 
     public JButton getBtn_add_vertex() {
@@ -46,18 +66,6 @@ public class GuiGraph extends javax.swing.JFrame {
         return btn_switch_link;
     }
 
-    public JTextArea getText_list_adjacency() {
-        return text_list_adjacency;
-    }
-
-    public JTextArea getText_matrix_adjacency() {
-        return text_matrix_adjacency;
-    }
-
-    public JTextArea getText_matrix_incidence() {
-        return text_matrix_incidence;
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -74,17 +82,22 @@ public class GuiGraph extends javax.swing.JFrame {
         btn_adjacent = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btn_print_graph = new javax.swing.JButton();
-        btn_print_prim = new javax.swing.JButton();
-        btn_print_bfs = new javax.swing.JButton();
-        btn_print_dfs = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btn_load_map = new javax.swing.JButton();
         panel_text = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        text_matrix_adjacency = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        split_1 = new javax.swing.JSplitPane();
+        split_2 = new javax.swing.JSplitPane();
+        split_3 = new javax.swing.JSplitPane();
+        split_4 = new javax.swing.JSplitPane();
+        scroll_5 = new javax.swing.JScrollPane();
+        text_a_star = new javax.swing.JTextArea();
+        scroll_6 = new javax.swing.JScrollPane();
+        text_floyd_warshall = new javax.swing.JTextArea();
+        scroll_3 = new javax.swing.JScrollPane();
         text_matrix_incidence = new javax.swing.JTextArea();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        scroll_2 = new javax.swing.JScrollPane();
+        text_matrix_adjacency = new javax.swing.JTextArea();
+        scroll_1 = new javax.swing.JScrollPane();
         text_list_adjacency = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -182,39 +195,6 @@ public class GuiGraph extends javax.swing.JFrame {
             }
         });
         toolbar.add(btn_print_graph);
-
-        btn_print_prim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/graph/img/prim.png"))); // NOI18N
-        btn_print_prim.setFocusable(false);
-        btn_print_prim.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_print_prim.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_print_prim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_print_primActionPerformed(evt);
-            }
-        });
-        toolbar.add(btn_print_prim);
-
-        btn_print_bfs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/graph/img/bfs.png"))); // NOI18N
-        btn_print_bfs.setFocusable(false);
-        btn_print_bfs.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_print_bfs.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_print_bfs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_print_bfsActionPerformed(evt);
-            }
-        });
-        toolbar.add(btn_print_bfs);
-
-        btn_print_dfs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/graph/img/dfs.png"))); // NOI18N
-        btn_print_dfs.setFocusable(false);
-        btn_print_dfs.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_print_dfs.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_print_dfs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_print_dfsActionPerformed(evt);
-            }
-        });
-        toolbar.add(btn_print_dfs);
         toolbar.add(jSeparator2);
 
         btn_load_map.setIcon(new javax.swing.ImageIcon(getClass().getResource("/graph/img/map.png"))); // NOI18N
@@ -228,60 +208,118 @@ public class GuiGraph extends javax.swing.JFrame {
         });
         toolbar.add(btn_load_map);
 
-        text_matrix_adjacency.setEditable(false);
-        text_matrix_adjacency.setColumns(20);
-        text_matrix_adjacency.setRows(5);
-        text_matrix_adjacency.setBorder(javax.swing.BorderFactory.createTitledBorder("Matriz de Adjacência"));
-        jScrollPane1.setViewportView(text_matrix_adjacency);
+        split_1.setDividerLocation(170);
+        split_1.setDividerSize(11);
+        split_1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        split_1.setMaximumSize(new java.awt.Dimension(200, 200));
+        split_1.setMinimumSize(new java.awt.Dimension(200, 200));
+        split_1.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        split_2.setDividerLocation(170);
+        split_2.setDividerSize(11);
+        split_2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        split_2.setMaximumSize(new java.awt.Dimension(200, 200));
+        split_2.setMinimumSize(new java.awt.Dimension(200, 200));
+        split_2.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        split_3.setDividerLocation(170);
+        split_3.setDividerSize(11);
+        split_3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        split_3.setMaximumSize(new java.awt.Dimension(200, 200));
+        split_3.setMinimumSize(new java.awt.Dimension(200, 200));
+        split_3.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        split_4.setDividerLocation(170);
+        split_4.setDividerSize(11);
+        split_4.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        split_4.setMaximumSize(new java.awt.Dimension(200, 200));
+        split_4.setMinimumSize(new java.awt.Dimension(200, 200));
+        split_4.setName(""); // NOI18N
+        split_4.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        text_a_star.setEditable(false);
+        text_a_star.setColumns(20);
+        text_a_star.setRows(5);
+        text_a_star.setBorder(javax.swing.BorderFactory.createTitledBorder("A Estrela"));
+        text_a_star.setPreferredSize(new java.awt.Dimension(450, 350));
+        scroll_5.setViewportView(text_a_star);
+
+        split_4.setRightComponent(scroll_5);
+
+        text_floyd_warshall.setEditable(false);
+        text_floyd_warshall.setColumns(20);
+        text_floyd_warshall.setRows(5);
+        text_floyd_warshall.setBorder(javax.swing.BorderFactory.createTitledBorder("Floyd-Warshall"));
+        text_floyd_warshall.setPreferredSize(null);
+        scroll_6.setViewportView(text_floyd_warshall);
+
+        split_4.setLeftComponent(scroll_6);
+
+        split_3.setRightComponent(split_4);
 
         text_matrix_incidence.setEditable(false);
         text_matrix_incidence.setColumns(20);
         text_matrix_incidence.setRows(5);
         text_matrix_incidence.setBorder(javax.swing.BorderFactory.createTitledBorder("Matriz de Incidência"));
-        jScrollPane2.setViewportView(text_matrix_incidence);
+        text_matrix_incidence.setPreferredSize(new java.awt.Dimension(450, 350));
+        scroll_3.setViewportView(text_matrix_incidence);
+
+        split_3.setLeftComponent(scroll_3);
+
+        split_2.setRightComponent(split_3);
+
+        text_matrix_adjacency.setEditable(false);
+        text_matrix_adjacency.setColumns(20);
+        text_matrix_adjacency.setRows(5);
+        text_matrix_adjacency.setBorder(javax.swing.BorderFactory.createTitledBorder("Matriz de Adjacência"));
+        text_matrix_adjacency.setPreferredSize(new java.awt.Dimension(450, 350));
+        scroll_2.setViewportView(text_matrix_adjacency);
+
+        split_2.setLeftComponent(scroll_2);
+
+        split_1.setRightComponent(split_2);
+
+        scroll_1.setPreferredSize(new java.awt.Dimension(369, 151));
 
         text_list_adjacency.setEditable(false);
         text_list_adjacency.setColumns(20);
         text_list_adjacency.setRows(5);
         text_list_adjacency.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Adjacência"));
-        jScrollPane3.setViewportView(text_list_adjacency);
+        text_list_adjacency.setPreferredSize(new java.awt.Dimension(450, 350));
+        scroll_1.setViewportView(text_list_adjacency);
+
+        split_1.setLeftComponent(scroll_1);
 
         javax.swing.GroupLayout panel_textLayout = new javax.swing.GroupLayout(panel_text);
         panel_text.setLayout(panel_textLayout);
         panel_textLayout.setHorizontalGroup(
             panel_textLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_textLayout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addGroup(panel_textLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(split_1, javax.swing.GroupLayout.DEFAULT_SIZE, 1060, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panel_textLayout.setVerticalGroup(
             panel_textLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-            .addComponent(jScrollPane2)
+            .addGroup(panel_textLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(split_1, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 1048, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panel_text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE)
+            .addComponent(panel_text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 310, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(69, 69, 69)
-                    .addComponent(panel_text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_text, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -303,33 +341,21 @@ public class GuiGraph extends javax.swing.JFrame {
         control.switchDirection();
     }//GEN-LAST:event_btn_switch_linkActionPerformed
 
-    private void btn_print_primActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_print_primActionPerformed
-        control.printPrim();
-    }//GEN-LAST:event_btn_print_primActionPerformed
-
     private void btn_remove_vertexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_remove_vertexActionPerformed
         control.removeVertex();
     }//GEN-LAST:event_btn_remove_vertexActionPerformed
 
     private void btn_remove_linkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_remove_linkActionPerformed
-       control.removeLink();
+        control.removeLink();
     }//GEN-LAST:event_btn_remove_linkActionPerformed
 
     private void btn_cleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cleanActionPerformed
         control.cleanGui();
     }//GEN-LAST:event_btn_cleanActionPerformed
 
-    private void btn_print_bfsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_print_bfsActionPerformed
-        control.printBFS();
-    }//GEN-LAST:event_btn_print_bfsActionPerformed
-
-    private void btn_print_dfsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_print_dfsActionPerformed
-        control.printDFS();
-    }//GEN-LAST:event_btn_print_dfsActionPerformed
-
     private void btn_adjacentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adjacentActionPerformed
-       GuiAdjacent adjacent = new GuiAdjacent(control);
-       adjacent.setVisible(true);   
+        GuiAdjacent adjacent = new GuiAdjacent(control);
+        adjacent.setVisible(true);
     }//GEN-LAST:event_btn_adjacentActionPerformed
 
     private void btn_load_mapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_load_mapActionPerformed
@@ -344,21 +370,26 @@ public class GuiGraph extends javax.swing.JFrame {
     private javax.swing.JButton btn_adjacent;
     private javax.swing.JButton btn_clean;
     private javax.swing.JButton btn_load_map;
-    private javax.swing.JButton btn_print_bfs;
-    private javax.swing.JButton btn_print_dfs;
     private javax.swing.JButton btn_print_graph;
-    private javax.swing.JButton btn_print_prim;
     private javax.swing.JButton btn_remove_link;
     private javax.swing.JButton btn_remove_vertex;
     private javax.swing.JButton btn_switch_link;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JPanel panel_text;
+    private javax.swing.JScrollPane scroll_1;
+    private javax.swing.JScrollPane scroll_2;
+    private javax.swing.JScrollPane scroll_3;
+    private javax.swing.JScrollPane scroll_5;
+    private javax.swing.JScrollPane scroll_6;
     private javax.swing.JToolBar.Separator separator01;
     private javax.swing.JToolBar.Separator separator02;
+    private javax.swing.JSplitPane split_1;
+    private javax.swing.JSplitPane split_2;
+    private javax.swing.JSplitPane split_3;
+    private javax.swing.JSplitPane split_4;
+    private javax.swing.JTextArea text_a_star;
+    private javax.swing.JTextArea text_floyd_warshall;
     private javax.swing.JTextArea text_list_adjacency;
     private javax.swing.JTextArea text_matrix_adjacency;
     private javax.swing.JTextArea text_matrix_incidence;

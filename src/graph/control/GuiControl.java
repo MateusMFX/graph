@@ -15,11 +15,9 @@ import graph.viewer.GuiGraph;
 import graph.Link;
 import graph.algorithm.ListAdjacency;
 import graph.Vertex;
-import graph.algorithm.BreadthFirstSearch;
-import graph.algorithm.DepthFirstSearch;
+import graph.algorithm.FloydWarshall;
 import graph.algorithm.MatrixAdjacency;
 import graph.algorithm.MatrixIncidence;
-import graph.algorithm.Prim;
 import graph.algorithm.WelshPowell;
 import graph.viewer.ListAdjacencyViewer;
 import graph.viewer.MatrixAdjacencyViewer;
@@ -152,48 +150,17 @@ public class GuiControl {
     }
 
     public void updateGui() {
-        new WelshPowell(list).run();
+        new WelshPowell(list).run();      
         gui.getText_list_adjacency().setText(ListAdjacencyViewer.status(list));
         gui.getText_matrix_adjacency().setText(MatrixAdjacencyViewer.status(new MatrixAdjacency(list)));
         gui.getText_matrix_incidence().setText(MatrixIncidenceViewer.status(new MatrixIncidence(list)));
+        gui.getText_floyd_warshall().setText(new FloydWarshall(list).run().getLog());
     }
 
     public void printGraph() {
         print(list);
     }
 
-    public void printPrim() {
-        JPanel panel = createPanelVertex("Vértice Inicial: ");
-        JOptionPane pane = createOptionPane(panel);
-        pane.createDialog(gui, "Prim").setVisible(true);
-        if (pane.getOptionType() == 2) {
-            Prim prim = new Prim(list)
-                    .withStart(new Vertex(((JTextField) panel.getComponent(1)).getText()));
-            print(prim.runPrim());
-        }
-    }
-
-    public void printBFS() {
-        JPanel panel = createPanelVertex("Vértice Inicial: ");
-        JOptionPane pane = createOptionPane(panel);
-        pane.createDialog(gui, "BFS").setVisible(true);
-        if (pane.getOptionType() == 2) {
-            BreadthFirstSearch bfs = new BreadthFirstSearch(list)
-                    .withStart(new Vertex(((JTextField) panel.getComponent(1)).getText()));
-            print(bfs.runBFS());
-        }
-    }
-
-    public void printDFS() {
-        JPanel panel = createPanelVertex("Vértice Inicial: ");
-        JOptionPane pane = createOptionPane(panel);
-        pane.createDialog(gui, "DFS").setVisible(true);
-        if (pane.getOptionType() == 2) {
-            DepthFirstSearch dfs = new DepthFirstSearch(list)
-                    .withStart(new Vertex(((JTextField) panel.getComponent(1)).getText()));
-            print(dfs.runDFS());
-        }
-    }
 
     private EdgeType getTypeGraph(Class clazz) {
         return clazz == Directed.class ? EdgeType.DIRECTED : EdgeType.UNDIRECTED;

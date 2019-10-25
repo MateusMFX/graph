@@ -35,7 +35,8 @@ public abstract class StringControl {
      */
     public static String arrayViewer(Object[] array, int pad) {
         return Arrays.asList(array).stream()
-                .map(value -> String.format("%-" + pad + "." + pad + "s\t", value.toString()))
+                .map(value -> String.format("%-" + pad + "." + pad + "s\t",
+                       value.toString().equals("-1") ? "∞" : value.toString()))
                 .collect(Collectors.joining());
     }
 
@@ -79,7 +80,7 @@ public abstract class StringControl {
     public static String matrixHeadColumnViewer(Object[][] matrix, Object[] headColumn, int pad) {
         String value = "";
         for (int i = 0; i < headColumn.length; i++) {
-            value += String.format("%-" + pad + "." + pad + "s\t", headColumn[i].toString())
+            value += String.format("%-" + pad + "." + pad + "s\t|  ", headColumn[i].toString())
                     + arrayViewer(matrix[i], pad) + "\n";
         }
         return value;
@@ -99,8 +100,8 @@ public abstract class StringControl {
      */
     public static String matrixViewer(Object[][] matrix, Object[] headLine, Object[] headColumn, int pad) {
         if (pad != 0) {
-            String value = String.format("%-" + pad + "." + pad + "s\t", "")
-                    + arrayViewer(headLine, pad) + "\n";
+            String value = String.format("%-" + pad + "." + pad + "s\t   ", "")
+                    + arrayViewer(headLine, pad) + "\n\n";
             value += matrixHeadColumnViewer(matrix, headColumn, pad);
             return value;
         }
