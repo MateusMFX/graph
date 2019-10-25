@@ -54,13 +54,13 @@ public class Vertex implements Comparable<Vertex> {
     @Override
     public boolean equals(Object o) {
         return o.getClass() == Vertex.class
-                && element.equals(((Vertex) o).element);
+                && element.toString().equals(((Vertex) o).element.toString());
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.element);
+        hash = 23 * hash + Objects.hashCode(this.element.toString());
         return hash;
     }
 

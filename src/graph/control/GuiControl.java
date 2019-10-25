@@ -1,6 +1,5 @@
 package graph.control;
 
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
@@ -25,7 +24,6 @@ import graph.algorithm.WelshPowell;
 import graph.viewer.ListAdjacencyViewer;
 import graph.viewer.MatrixAdjacencyViewer;
 import graph.viewer.MatrixIncidenceViewer;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Paint;
@@ -161,7 +159,7 @@ public class GuiControl {
     }
 
     public void printGraph() {
-        print(list, "Grafo");
+        print(list);
     }
 
     public void printPrim() {
@@ -171,7 +169,7 @@ public class GuiControl {
         if (pane.getOptionType() == 2) {
             Prim prim = new Prim(list)
                     .withStart(new Vertex(((JTextField) panel.getComponent(1)).getText()));
-            print(prim.runPrim(), "Prim");
+            print(prim.runPrim());
         }
     }
 
@@ -182,7 +180,7 @@ public class GuiControl {
         if (pane.getOptionType() == 2) {
             BreadthFirstSearch bfs = new BreadthFirstSearch(list)
                     .withStart(new Vertex(((JTextField) panel.getComponent(1)).getText()));
-            print(bfs.runBFS(), "BFS");
+            print(bfs.runBFS());
         }
     }
 
@@ -193,7 +191,7 @@ public class GuiControl {
         if (pane.getOptionType() == 2) {
             DepthFirstSearch dfs = new DepthFirstSearch(list)
                     .withStart(new Vertex(((JTextField) panel.getComponent(1)).getText()));
-            print(dfs.runDFS(), "DFS");
+            print(dfs.runDFS());
         }
     }
 
@@ -234,19 +232,21 @@ public class GuiControl {
         return vv;
     }
 
-    private void createFrame(String name, VisualizationViewer<Vertex, Link> vv) {
-        JFrame frame = new JFrame(name + " - Custo Total: " + list.getTotalCost());
+    private void createFrame(VisualizationViewer<Vertex, Link> vv) {
+        String nameWindow = "Custo Total: " + list.getTotalCost()
+                + " - " + (list.isPlanarity() ? "É Planar!" : "Não é Planar!");
+        JFrame frame = new JFrame(nameWindow);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(vv);
         frame.pack();
         frame.setVisible(true);
     }
 
-    public void print(ListAdjacency list, String name) {
+    public void print(ListAdjacency list) {
         Graph<Vertex, Link> graph = createGraphJung(list);
         Layout<Vertex, Link> layout = createLayoutJung(graph);
         VisualizationViewer<Vertex, Link> vv = createVisualizationJung(layout);
-        createFrame(name, vv);
+        createFrame(vv);
     }
 
     public ListAdjacency getList() {

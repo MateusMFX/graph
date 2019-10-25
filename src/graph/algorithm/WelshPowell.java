@@ -1,6 +1,5 @@
 package graph.algorithm;
 
-import cern.colt.Arrays;
 import graph.Vertex;
 import java.awt.Color;
 import java.util.LinkedList;

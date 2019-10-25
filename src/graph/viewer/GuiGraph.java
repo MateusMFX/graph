@@ -5,7 +5,6 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 import graph.Link;
 import graph.ParanaState;
 import graph.Vertex;
-import graph.viewer.GuiAdjacent;
 import graph.control.GuiControl;
 import javax.swing.JButton;
 import javax.swing.JTextArea;

@@ -1,11 +1,13 @@
 package graph;
 
+import java.util.Objects;
+
 /**
  *
  * @author uniaodk
  */
 public class City {
-    
+
     private String name, tag;
     private double latitude, longitude, heuristic;
 
@@ -52,5 +54,31 @@ public class City {
     @Override
     public String toString() {
         return tag;
-    }    
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 19 * hash + Objects.hashCode(this.tag);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final City other = (City) obj;
+        if (!Objects.equals(this.tag, other.tag)) {
+            return false;
+        }
+        return true;
+    }
+
 }

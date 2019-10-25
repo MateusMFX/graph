@@ -5,7 +5,6 @@ import graph.Link;
 import graph.Vertex;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -117,9 +116,31 @@ public class ListAdjacency {
                 .collect(Collectors.summingInt(Link::getCost));
     }
 
+    public boolean isThereCicleComprimentThree() {
+        for (Vertex vertex : getVertexes()) {
+            for (Vertex adjacent : list.get(vertex)) {
+                for (Vertex nextAdjacent : list.get(adjacent)) {
+                    if (list.get(nextAdjacent).contains(vertex)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isPlanarity() {
+        int qtdVertex = list.size();
+        int qtdLink = links.size();
+        if (!isThereCicleComprimentThree()) {
+            return qtdLink <= qtdVertex * 2 - 4;
+        }
+        return qtdLink <= qtdVertex * 3 - 6;
+    }
+
     public List<Vertex> sortByDegree() {
         return list.entrySet().stream()
-                .sorted((v1,v2) -> Integer.compare(v2.getValue().size(), v1.getValue().size()))
+                .sorted((v1, v2) -> Integer.compare(v2.getValue().size(), v1.getValue().size()))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }

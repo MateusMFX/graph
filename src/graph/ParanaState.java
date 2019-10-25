@@ -93,6 +93,7 @@ public class ParanaState {
 
     public void show() {
         System.out.println(ListAdjacencyViewer.status(listAdjacency));
+        System.out.println(listAdjacency.isThereCicleComprimentThree());
     }
 
 }
